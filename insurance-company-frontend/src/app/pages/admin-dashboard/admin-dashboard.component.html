@@ -1,0 +1,116 @@
+<div class="admin-dashboard">
+
+
+  <button class="userpage-button" style="margin-bottom: 20px" [routerLink]="['/user-dashboard']">
+    Pređi na korisničku aplikaciju
+  </button>
+
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Korisnici</h2>
+      <button class="primary-button" (click)="openAddAdminDialog()">+ Dodaj administratora</button>
+    </div>
+
+    <table class="dashboard-table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>JMBG</th>
+        <th>Korisničko ime</th>
+        <th>Email</th>
+        <th>Vrsta naloga</th>
+        <th>Blokiran</th>
+        <th>Blokiraj/Odblokiraj</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.lastname }}</td>
+        <td>{{ user.nationalIdNumber }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+        <td>{{ user.blocked ? 'Blokiran' : 'Aktivan' }}</td>
+        <td>
+          <button class="secondary-button" (click)="toggleBlock(user)">
+            {{ user.blocked ? 'Odblokiraj' : 'Blokiraj' }}
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Vrste osiguranja</h2>
+      <button class="primary-button" (click)="openAddInsuranceDialog()">+ Dodaj vrstu</button>
+    </div>
+
+    <table class="dashboard-table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Naziv</th>
+        <th>Opis</th>
+        <th>Bazna cijena</th>
+        <th>Izmijeni/Obriši</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let type of insuranceTypes">
+        <td>{{ type.id }}</td>
+        <td>{{ type.name }}</td>
+        <td>{{ type.description }}</td>
+        <td>{{ type.price | number:'1.2-2'}} KM</td>
+        <td>
+          <button class="secondary-button" (click)="editInsurance(type)">Izmijeni</button>
+          <button class="secondary-button delete" (click)="deleteInsurance(type.id)">Obriši</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+</div>
+
+<div class="modal" *ngIf="showAdminModal">
+  <div class="modal-content">
+    <h3>Novi administrator</h3>
+    <input [(ngModel)]="newAdmin.name" placeholder="Ime" />
+    <input [(ngModel)]="newAdmin.lastName" placeholder="Prezime" />
+    <input [(ngModel)]="newAdmin.nationalIdNumber" placeholder="JMBG" />
+    <input [(ngModel)]="newAdmin.username" placeholder="Korisničko ime" />
+    <input [(ngModel)]="newAdmin.email" placeholder="Email" />
+    <input [(ngModel)]="newAdmin.password" placeholder="Lozinka" type="password" />
+    <button (click)="addAdmin()">Dodaj</button>
+    <button (click)="showAdminModal = false">Otkaži</button>
+  </div>
+</div>
+
+<div class="modal" *ngIf="selectedInsurance">
+  <div class="modal-content">
+    <h3>Izmjena osiguranja</h3>
+    <input [(ngModel)]="selectedInsurance.name" placeholder="Naziv" />
+    <textarea [(ngModel)]="selectedInsurance.description" placeholder="Opis"></textarea>
+    <input type="number" [(ngModel)]="selectedInsurance.price" placeholder="Bazna cijena" />
+    <button (click)="saveInsurance()">Sačuvaj</button>
+    <button (click)="cancelEdit()">Otkaži</button>
+  </div>
+</div>
+
+<div class="modal" *ngIf="showAddInsuranceModal">
+  <div class="modal-content">
+    <h3>Dodavanje nove vrste</h3>
+    <input [(ngModel)]="newInsurance.name" placeholder="Naziv" />
+    <textarea [(ngModel)]="newInsurance.description" placeholder="Opis"></textarea>
+    <input type="number" [(ngModel)]="newInsurance.price" placeholder="Bazna cijena" />
+    <button (click)="addInsurance()">Dodaj</button>
+    <button (click)="showAddInsuranceModal = false">Otkaži</button>
+  </div>
+</div>

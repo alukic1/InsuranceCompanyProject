@@ -1,0 +1,16 @@
+<div class="form-container">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <h2>Prijava</h2>
+
+    <input type="text" formControlName="username" placeholder="Korisničko ime" required />
+    <input type="password" formControlName="password" placeholder="Lozinka" required />
+
+    <button type="submit">Prijavite se</button>
+
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <div class="link">
+      Nemate nalog? <a routerLink="/register">Registrujte se</a>
+    </div>
+  </form>
+</div>

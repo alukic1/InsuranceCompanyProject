@@ -1,0 +1,48 @@
+.site-header {
+  background-color: #1e3a8a;
+  padding: 16px 40px;
+  border-bottom: 2px solid #1d4ed8;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.username {
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.logout-button {
+  padding: 8px 16px;
+  background-color: #ffffff;
+  color: #1e3a8a;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #e0e7ff;
+  color: #1e40af;
+}
+

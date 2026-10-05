@@ -1,0 +1,78 @@
+<div class="user-dashboard">
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Dostupna osiguranja za kupovinu</h2>
+    </div>
+
+    <table class="dashboard-table">
+      <thead>
+      <tr>
+
+        <th>Naziv</th>
+        <th>Opis</th>
+        <th>Bazna cijena</th>
+        <th>Kupovina</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let insurance of insuranceTypes">
+
+        <td>{{ insurance.name }}</td>
+        <td>{{ insurance.description }}</td>
+        <td>{{ insurance.price | number:'1.2-2'}} KM</td>
+        <td>
+          <button class="primary-button" (click)="openBuyDialog(insurance)">Kupi</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+
+
+  <section class="section" *ngIf="purchasedPolicies?.length">
+    <div class="section-header">
+      <h2>Moje kupljene polise</h2>
+    </div>
+
+    <table class="dashboard-table">
+      <thead>
+      <tr>
+        <th>Naziv osiguranja</th>
+        <th>Početni datum</th>
+        <th>Krajnji datum</th>
+        <th>Status</th>
+        <th>Plaćena cijena</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let policy of purchasedPolicies">
+        <td>{{ policy.type.name }}</td>
+        <td>{{ policy.startDate | date: 'dd.MM.yyyy' }}</td>
+        <td>{{ policy.endDate | date: 'dd.MM.yyyy' }}</td>
+        <td>
+          {{ isActive(policy.endDate, policy.startDate) ? 'Aktivno' : 'Neaktivno' }}
+        </td>
+        <td>{{ policy.pricePaid | number: '1.2-2' }} KM</td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+
+</div>
+
+
+<div class="modal" *ngIf="selectedInsurance">
+  <div class="modal-content">
+    <h3>Kupovina osiguranja: {{ selectedInsurance.name }}</h3>
+    <label>Početni datum</label>
+    <input type="date" [(ngModel)]="startDate" [min]="today"
+           (change)="onStartDateChange()" />
+
+    <label>Krajnji datum</label>
+    <input type="date" [(ngModel)]="endDate"  [min]="startDate || today" />
+
+    <button (click)="buyInsurance()">Nastavi na plaćanje</button>
+    <button (click)="selectedInsurance = null">Otkaži</button>
+  </div>
+</div>

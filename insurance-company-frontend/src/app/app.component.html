@@ -1,0 +1,12 @@
+<header class="site-header">
+  <div class="header-content">
+    <span class="logo">AL Osiguranje</span>
+
+    <div class="user-info" *ngIf="auth.isLoggedIn()">
+      <span class="username">{{ auth.getUsername() }}</span>
+      <button class="logout-button" (click)="logout()">Odjava</button>
+    </div>
+  </div>
+</header>
+
+<router-outlet></router-outlet>
